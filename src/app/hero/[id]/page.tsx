@@ -18,7 +18,7 @@ import Heading from "@/app/components/heading/heading";
 const Hero = () => {
   const path = usePathname();
 
-  const [,, id] = path.split("/");
+  const [, , id] = path.split("/");
   const [hero, setHero] = useState<IHero>();
   const [elements, setElements] = useState<any[]>([]);
   const [edges, setEdges] = useState<any[]>([]);
@@ -108,40 +108,32 @@ const Hero = () => {
           let starshipEdges: any[] = []; //starships
           let filmEdges: any[] = [];
 
-          for (let i = 0; i < films.length; i++) {
-            const film = films[i];
-            for (let j = 0; j < starships.length; j++) {
-              const starship = starships[j];
+          for (const film of films) {
+            for (const starship of starships) {
               if (film.starships.includes(starship.id)) {
-                starshipEdges = [
-                  ...starshipEdges,
-                  {
-                    id: `${film.id}-${starship.id}`,
-                    source: film.id.toString(),
-                    target: starship.id.toString(),
-                    type: "bezier",
-                    style: { stroke: `red` },
-                  },
-                ];
+                starshipEdges.push({
+                  id: `${film.id}-${starship.id}`,
+                  source: film.id.toString(),
+                  target: starship.id.toString(),
+                  type: "bezier",
+                  style: { stroke: `red` },
+                });
               }
             }
-            filmEdges = [
-              ...filmEdges,
-              {
-                id: `${heroData.id}-${film.id}`,
-                source: `${heroData.id}`,
-                target: `${film.id}`,
-                type: "bezier",
-                style: { stroke: `black` },
-              },
-            ];
+            filmEdges.push({
+              id: `${heroData.id}-${film.id}`,
+              source: `${heroData.id}`,
+              target: `${film.id}`,
+              type: "bezier",
+              style: { stroke: `black` },
+            });
           }
           setElements([heroNode, ...filmNodes, ...starshipNodes]);
           setEdges([...filmEdges, ...starshipEdges]);
           setHero(heroData);
         } catch (error) {
           console.error("Failed to fetch hero details", error);
-          setError('Error In fetching')
+          setError("Error In fetching");
         }
       };
 
@@ -150,7 +142,9 @@ const Hero = () => {
   }, [id]);
 
   if (!hero && error) {
-    return <div className="text-5xl color-red-500">Ops... Something went wront!</div>;
+    return (
+      <div className="text-5xl color-red-500">Ops... Something went wront!</div>
+    );
   }
   if (!hero) {
     return <div>Loading...</div>;
