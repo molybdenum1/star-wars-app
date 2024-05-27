@@ -9,7 +9,7 @@ type ListProps = {
 export default function List(props: ListProps) {
   const { heroes } = props;
   return (
-    <ul className="list-none p-0 h-[315px]">
+    <ul className="list-none p-0 w-full max-w-md h-[315px] overflow-y-auto bg-white shadow-md rounded-lg">
       {heroes.map((hero: IHero) => (
         <ListItem hero={hero} />
       ))}

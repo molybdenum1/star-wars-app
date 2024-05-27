@@ -11,7 +11,7 @@ export default function ListItem(props: ListItemProps) {
   return (
     <li key={hero.url} className="mb-2">
       <Link
-        className="text-red-500 hover:underline"
+        className="mb-2 p-2 border-b last:border-none"
         href={`/hero/${hero.url.split("/").slice(-2, -1)[0]}`}
       >
         {hero.name}

@@ -11,7 +11,7 @@ const Button: React.FC<ButtonProps> = (props) => {
   const { className, onClick, disabled, text } = props;
   return (
     <button className={className} onClick={onClick} disabled={disabled}>
-      {text}
+      Previous
     </button>
   );
 };
